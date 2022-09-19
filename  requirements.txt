@@ -1,0 +1,4 @@
+pandas
+hashlib
+requests
+tqdm
