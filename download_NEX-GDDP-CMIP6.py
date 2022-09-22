@@ -42,6 +42,13 @@ model = [x.strip() for x in model]
 experiment = [x.strip() for x in experiment]
 variable = [x.strip() for x in variable]
 
+# Filter the file_list based on the user's choices
+file_list = file_list[file_list['Model'].isin(model)]
+file_list = file_list[file_list['Experiment'].isin(experiment)]
+file_list = file_list[file_list['Variable'].isin(variable)]
+# Reset the index
+file_list = file_list.reset_index(drop=True)
+
 # Print the user's choices
 print('='*50)
 print('Please confirm your choices:')
@@ -72,13 +79,6 @@ else:
     root_path = os.path.abspath(root_path)
 
 print('='*50)
-
-# Filter the file_list based on the user's choices
-file_list = file_list[file_list['Model'].isin(model)]
-file_list = file_list[file_list['Experiment'].isin(experiment)]
-file_list = file_list[file_list['Variable'].isin(variable)]
-# Reset the index
-file_list = file_list.reset_index(drop=True)
 
 def md5sum(file_path):
     '''
