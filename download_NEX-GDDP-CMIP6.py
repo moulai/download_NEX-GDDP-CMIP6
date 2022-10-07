@@ -114,7 +114,7 @@ def download_file(url, path, file_md5, md5_check, overwrite):
             else:
                 print('The file {} already exists, skip downloading. (MD5 not checked)'.format(file_name))
                 return
-    # Download the file, with progress bar, retry 1 time
+    # Download the file, with progress bar
     import requests
     from tqdm import tqdm
     r = requests.get(url, stream=True)
