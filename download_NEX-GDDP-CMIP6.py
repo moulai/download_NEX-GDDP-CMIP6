@@ -6,7 +6,7 @@ import os
 import pandas as pd
 
 # Read in the csv "gddp-cmip6-thredds-fileserver.csv" which contains the NEX-GDDP-CMIP6 urls
-file_list = pd.read_csv('gddp-cmip6-thredds-fileserver.csv')
+file_list = pd.read_csv('gddp-cmip6-files.csv')
 
 # Let the user choose the Model, Experiment, and Variable to be downloaded
 # Print the available Models
@@ -114,17 +114,17 @@ def download_file(url, path, file_md5, md5_check, overwrite):
             else:
                 print('The file {} already exists, skip downloading. (MD5 not checked)'.format(file_name))
                 return
-    # Download the file using requests with progress bar
+    # Download the file, with progress bar, retry 1 time
     import requests
     from tqdm import tqdm
-    print('Downloading file from {} ...'.format(url))
     r = requests.get(url, stream=True)
+    total_size = int(r.headers.get('content-length', 0))
+    block_size = 1024
+    wrote = 0
     with open(path, 'wb') as f:
-        total_length = int(r.headers.get('content-length'))
-        for chunk in tqdm(r.iter_content(chunk_size=1024), total=total_length/1024, unit='KB', unit_scale=True):
-            if chunk:
-                f.write(chunk)
-                f.flush()
+        for data in tqdm(r.iter_content(block_size), total=total_size//block_size, unit='KB', unit_scale=True):
+            wrote = wrote  + len(data)
+            f.write(data)
     # Check the MD5 checksum
     if md5_check:
         print('Checking the MD5 checksum...')
