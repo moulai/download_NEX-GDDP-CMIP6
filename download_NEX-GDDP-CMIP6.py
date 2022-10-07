@@ -128,6 +128,11 @@ def download_file(url, path, file_md5, md5_check, overwrite):
                 f.write(data)
                 f.flush()
     except requests.exceptions.RequestException as e:
+        # Remove the incomplete file
+        try:
+            os.remove(path)
+        except:
+            pass
         print('Failed to download the file {}.'.format(file_name))
         return
     # Check the MD5 checksum
