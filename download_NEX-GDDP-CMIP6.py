@@ -118,7 +118,7 @@ def download_file(url, path, file_md5, md5_check, overwrite):
     import requests
     from tqdm import tqdm
     try:
-        r = requests.get(url, stream=True)
+        r = requests.get(url, stream=True, timeout=10)
         total_size = int(r.headers.get('content-length', 0))
         block_size = 1024*1024
         wrote = 0
