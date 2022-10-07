@@ -119,10 +119,10 @@ def download_file(url, path, file_md5, md5_check, overwrite):
     from tqdm import tqdm
     r = requests.get(url, stream=True)
     total_size = int(r.headers.get('content-length', 0))
-    block_size = 1024
+    block_size = 1024*1024
     wrote = 0
     with open(path, 'wb') as f:
-        for data in tqdm(r.iter_content(block_size), total=total_size//block_size, unit='KB', unit_scale=True):
+        for data in tqdm(r.iter_content(block_size), total=total_size//block_size, unit='MB', unit_scale=True):
             wrote = wrote  + len(data)
             f.write(data)
     # Check the MD5 checksum
