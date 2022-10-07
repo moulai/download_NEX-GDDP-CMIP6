@@ -27,8 +27,7 @@ def md5_check_single(file_path, file_md5):
     if file_md5 == md5sum(file_path):
         print('The MD5 checksum of {} is correct.'.format(file_path))
     else:
-        print('The MD5 checksum of {} is incorrect.'.format(file_path))
-        print('The downloaded file is removed.')
+        print('NOTICE! The MD5 checksum of {} is incorrect. The downloaded file is removed.'.format(file_path))
         os.remove(file_path)
 
 def md5_check_remove(file_path_list, md5_list):
