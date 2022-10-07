@@ -159,5 +159,5 @@ for index, row in file_list.iterrows():
     file_md5 = row['fileMD5']
     download_file(row['fileUrl'], path, file_md5=file_md5, md5_check=md5, overwrite=overwrite)
     # Print the progress
-    print('Downloaded ' + str(index+1) + ' of ' + str(len(file_list)) + ' files')
+    print('Processed ' + str(index+1) + ' of ' + str(len(file_list)) + ' files')
     print()
