@@ -2,3 +2,4 @@ pandas
 hashlib
 requests
 tqdm
+joblib
